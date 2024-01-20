@@ -1,0 +1,34 @@
+282. Expression Add Operators
+https://leetcode.com/problems/expression-add-operators/description/
+Solution:
+class Solution {
+    public List<String> addOperators(String num, int target) {
+        int n = num.length();
+        List<String> result = new ArrayList<>();
+        helper(result , "",num, target,0,0,0);
+        return result;
+    }
+    public void helper(List<String> result,String path,String num,int target,int start,long valueYet,long prev){
+       if(start==num.length() && valueYet==target){
+           result.add(path);
+           return;
+       }
+
+       for(int i=start;i<num.length();i++){
+           if(i>start && num.charAt(start)=='0'){
+               break;
+           }
+           long curr = Long.parseLong(num.substring(start,i+1));
+           if(start==0){
+               helper(result,path+curr,num,target,i+1,curr,curr);
+           }
+           else{
+               helper(result,path+'+'+curr,num,target,i+1,valueYet+curr,curr);
+               helper(result,path+'-'+curr,num,target,i+1,valueYet-curr,-curr);
+
+               long multi = (valueYet-prev) + (prev*curr);
+               helper(result,path+'*'+curr,num,target,i+1,multi,prev*curr);
+           }
+       }
+    }
+}
