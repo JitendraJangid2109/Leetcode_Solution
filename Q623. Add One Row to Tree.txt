@@ -1,0 +1,46 @@
+Q623. Add One Row to Tree
+https://leetcode.com/problems/add-one-row-to-tree/description/
+Solution:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode addOneRow(TreeNode root, int val, int depth) {
+        if(depth==1){
+            return new TreeNode(val,root,null);
+        }
+        return helper(root,val,depth,1);
+    }
+
+    public TreeNode helper(TreeNode currnode ,int val,int depth,int currdepth){
+        if(currnode==null) return null;
+
+        currnode.left = helper(currnode.left , val,depth,currdepth+1);
+        currnode.right = helper(currnode.right , val,depth,currdepth+1);
+
+        if(currdepth == depth-1){
+            TreeNode prevLeft = currnode.left;
+            TreeNode prevRight= currnode.right;
+
+            currnode.left = new TreeNode(val,prevLeft ,null);
+            currnode.right = new TreeNode(val ,null ,prevRight);
+        }
+
+        return currnode;
+
+    }
+
+
+}
