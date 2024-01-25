@@ -1,0 +1,33 @@
+Q347. Top K Frequent Elements
+https://leetcode.com/problems/top-k-frequent-elements/description/
+Solution:
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer,Integer> mp = new HashMap();
+        List<Integer>[] bucket = new ArrayList[nums.length +1];
+        // Store the frequency in the map
+        for(int num: nums){
+            mp.put(num , mp.getOrDefault(num,0)+1);
+        }
+
+        for(int key : mp.keySet()){
+            int freq = mp.get(key);
+            if(bucket[freq]==null){
+                bucket[freq] = new ArrayList<>();
+            }
+            bucket[freq].add(key);
+        }
+
+        int[] result = new int[k];
+        int count = 0;
+        for(int i=bucket.length-1;i>=0 && count <k ;i--){
+            if(bucket[i] != null){
+            for(int n : bucket[i]){
+                result[count++] = n;
+            }
+          }
+        }
+
+        return result;
+    }
+}
