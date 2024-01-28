@@ -1,0 +1,42 @@
+Q659. Split Array into Consecutive Subsequences
+https://leetcode.com/problems/split-array-into-consecutive-subsequences/description/
+Solution:
+class Solution {
+    public boolean isPossible(int[] nums) {
+        HashMap<Integer,Integer> available = new HashMap<>();
+        HashMap<Integer,Integer> vacancy = new HashMap();
+
+        for(int num: nums){
+            available.put(num , available.getOrDefault(num,0)+1);
+        }
+
+        for(int i=0;i<nums.length;i++){
+            if(available.get(nums[i]) <= 0){
+                continue;
+            }
+
+            else if(vacancy.getOrDefault(nums[i],0)> 0){
+                available.put(nums[i] , available.getOrDefault(nums[i],0)-1);
+                vacancy.put(nums[i],vacancy.getOrDefault(nums[i],0)-1);
+
+                vacancy.put(nums[i]+1,vacancy.getOrDefault(nums[i]+1,0)+1);
+
+            }
+
+            else if(available.getOrDefault(nums[i],0)>0 && available.getOrDefault(nums[i]+1,0) >0 && available.getOrDefault(nums[i]+2,0) >0){
+                available.put(nums[i] ,available.getOrDefault(nums[i],0)-1);
+                available.put(nums[i]+1 ,available.getOrDefault(nums[i]+1,0)-1);
+                available.put(nums[i]+2 ,available.getOrDefault(nums[i]+2,0)-1);
+                vacancy.put(nums[i]+3,vacancy.getOrDefault(nums[i]+3,0)+1);
+
+
+            }
+
+            else {
+                return false;
+            }        
+
+        }
+        return true;
+    }
+}
