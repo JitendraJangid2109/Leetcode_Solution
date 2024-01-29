@@ -1,0 +1,21 @@
+Q390. Elimination Game
+https://leetcode.com/problems/elimination-game/description/
+Solution:
+class Solution {
+    public int lastRemaining(int n) {
+        boolean left = true;
+        int head = 1;
+        int step = 1;
+        int rem = n;
+
+        while(rem > 1){
+            if(left || (rem%2==1)){
+                head = head + step;
+            }
+            rem /= 2;
+            step *= 2;
+            left = !left;
+        }
+        return head;
+    }
+}
