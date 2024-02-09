@@ -1,0 +1,28 @@
+Q846. Hand of Straights
+https://leetcode.com/problems/hand-of-straights/description/
+Solution:
+class Solution {
+    public boolean isNStraightHand(int[] hand, int groupSize) {
+        int n = hand.length;
+        Map<Integer,Integer> mp = new HashMap<>();
+        for(int num : hand){
+            mp.put(num , mp.getOrDefault(num,0)+1);
+        }
+
+        Arrays.sort(hand);
+
+        for(int i=0;i<n;i++){
+            int currNum = hand[i];
+
+            if(mp.get(currNum)==0) continue;
+
+            for(int j=0;j<groupSize;j++){
+                int currgrpnum = hand[i] + j;
+                if(mp.getOrDefault(currgrpnum,0)==0) return false;
+
+                mp.put(currgrpnum ,mp.get(currgrpnum)-1);
+            }
+        }
+        return true;
+    }
+}
