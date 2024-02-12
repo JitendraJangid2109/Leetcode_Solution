@@ -1,0 +1,25 @@
+Q2178. Maximum Split of Positive Even Integers
+https://leetcode.com/problems/maximum-split-of-positive-even-integers/description/
+class Solution {
+    public List<Long> maximumEvenSplit(long finalSum) {
+        List<Long> ans = new ArrayList<>();
+        if(finalSum%2 != 0) return ans;
+
+        long currSum =0;
+        long currEvenNum = 2;
+        while(currSum + currEvenNum <= finalSum){
+            currSum += currEvenNum;
+            ans.add(currEvenNum);
+            currEvenNum += 2;
+        }
+
+        if(currSum < finalSum){
+            long lastNum = ans.remove(ans.size()-1);
+            long diff = finalSum - currSum;
+            lastNum += diff;
+            ans.add(lastNum);
+
+        }
+        return ans;
+    }
+}
