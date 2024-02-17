@@ -1,0 +1,26 @@
+Q334. Increasing Triplet Subsequence
+https://leetcode.com/problems/increasing-triplet-subsequence/description/
+Solution:
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        int n = nums.length;
+
+        if(nums == null || n < 3) return false;
+        
+        int min1 = Integer.MAX_VALUE; // sabse chota
+        int min2 = Integer.MAX_VALUE; // min1 se bada number
+        for(int i=0;i<n;i++){
+            if(nums[i] <= min1) {
+                min1 = nums[i];
+            }
+            else if(nums[i] <= min2){
+                min2 = nums[i];
+            }
+            else{
+                // min2 se bda number milte hi return true
+                return true;
+            }
+        }
+        return false;
+    }
+}
