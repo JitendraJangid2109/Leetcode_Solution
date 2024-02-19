@@ -1,0 +1,32 @@
+Q1995. Count Special Quadruplets
+https://leetcode.com/problems/count-special-quadruplets/description/
+Solution:
+class Solution {
+    public int countQuadruplets(int[] nums) {
+        Map<Integer, List<Integer>> mp = new HashMap<>();
+        int n = nums.length;
+        int ans = 0;
+
+        for(int i=0;i<n;i++){
+            List<Integer> list = mp.getOrDefault(nums[i], new ArrayList<>());
+            mp.put(nums[i],list);
+            list.add(i);
+        }
+
+        for(int i=0;i<n-3;i++){
+            for(int j=i+1;j<n-2;j++){
+                for(int k=j+1;k<n-1;k++){
+                    int sum = nums[i] + nums[j] + nums[k];
+                    if(mp.containsKey(sum)){
+                        List<Integer> ls = mp.get(sum);
+                        for(int l : ls){
+                            if(l > k)  ans++;
+                        }
+                    }
+                }
+            }
+            
+        }
+        return ans;
+    }
+}
