@@ -1,0 +1,28 @@
+Q413. Arithmetic Slices
+Solution:
+class Solution {
+    public int numberOfArithmeticSlices(int[] nums) {
+        int n = nums.length;
+        if(n < 3) return 0;
+
+        int ans = 0;
+        for(int i=0;i<n-2;i++){
+           if(nums[i]- nums[i+1] == nums[i+1]-nums[i+2]){
+               ans += remain(i,i+2,nums);
+           }
+        }
+
+        return ans;
+    }
+
+    public static int remain(int s,int e,int[] nums){
+        if(e + 1 == nums.length) return 1;
+
+        if(nums[e+1]-nums[e] == nums[e]-nums[e-1]){
+            return 1 + remain(s,e+1,nums);
+        }
+
+        else 
+          return 1;
+    }
+}
