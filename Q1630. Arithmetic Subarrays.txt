@@ -1,0 +1,34 @@
+Q1630. Arithmetic Subarrays
+Solution:
+class Solution {
+    public List<Boolean> checkArithmeticSubarrays(int[] nums, int[] l, int[] r) {
+        int llength = l.length;
+        List<Boolean> ls = new ArrayList<>();
+
+        for(int i=0;i<llength;i++){
+            int left = l[i];
+            int right = r[i];
+            int length = right - left + 1;
+
+            int[] curr = new int[length];
+            for(int j=0,k=left;j<length&&k <= right;j++,k++){
+                curr[j] = nums[k];
+            }
+
+            ls.add(solve(curr));
+        }
+        return ls;
+    }
+
+
+    public static boolean solve(int[] curr){
+        Arrays.sort(curr);
+
+        int diff = curr[1] - curr[0];
+
+        for(int i=1;i<curr.length;i++){
+            if(curr[i]-curr[i-1] != diff) return false;
+        }
+        return true;
+    }
+}
